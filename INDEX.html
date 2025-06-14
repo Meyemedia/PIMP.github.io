@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$PIMP - Community Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Welcome Page */
+        .welcome-page {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #600000 0%, #300000 50%, #000 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: gradientShift 8s ease infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Geometric Pattern */
+        .geometric-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(30deg, rgba(80, 80, 80, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(80, 80, 80, 0.1) 87.5%, rgba(80, 80, 80, 0.1)),
+                linear-gradient(150deg, rgba(80, 80, 80, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(80, 80, 80, 0.1) 87.5%, rgba(80, 80, 80, 0.1)),
+                linear-gradient(30deg, rgba(80, 80, 80, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(80, 80, 80, 0.1) 87.5%, rgba(80, 80, 80, 0.1)),
+                linear-gradient(150deg, rgba(80, 80, 80, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(80, 80, 80, 0.1) 87.5%, rgba(80, 80, 80, 0.1)),
+                linear-gradient(60deg, rgba(100, 100, 100, 0.1) 25%, transparent 25.5%, transparent 75%, rgba(100, 100, 100, 0.1) 75%, rgba(100, 100, 100, 0.1)),
+                linear-gradient(60deg, rgba(100, 100, 100, 0.1) 25%, transparent 25.5%, transparent 75%, rgba(100, 100, 100, 0.1) 75%, rgba(100, 100, 100, 0.1));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 3;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 5rem;
+            color: #ff7700;
+            text-shadow: 0 0 15px rgba(255, 119, 0, 0.7);
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .buttons-container {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .welcome-btn {
+            background: transparent;
+            border: 3px solid #ff7700;
+            color: white;
+            padding: 18px 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 0 15px rgba(255, 119, 0, 0.3);
+        }
+
+        .welcome-btn:hover {
+            background: #ff7700;
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(255, 119, 0, 0.5);
+        }
+
+        .welcome-btn i {
+            font-size: 1.5rem;
+        }
+
+        /* Menu Page */
+        .menu-page {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #300000 0%, #200000 50%, #000 100%);
+            position: relative;
+            animation: gradientShift 12s ease infinite;
+            background-size: 300% 300%;
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .menu-title {
+            font-size: 3rem;
+            color: #ff7700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .menu-subtitle {
+            font-size: 1.2rem;
+            color: #ddd;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
+        }
+
+        .menu-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid #ff7700;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            min-height: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(255, 119, 0, 0.4);
+            background: rgba(30, 30, 30, 0.9);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: #ff7700;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .card-content {
+            color: #bbb;
+            flex-grow: 1;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .card-footer {
+            color: #ff7700;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #444;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        .coming-soon {
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .coming-soon.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .soon-content {
+            background: linear-gradient(135deg, #300000 0%, #200000 100%);
+            border: 3px solid #ff7700;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .soon-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #ff7700;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .soon-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .soon-icon {
+            font-size: 4rem;
+            color: #ff7700;
+            margin-bottom: 20px;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .soon-text {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .soon-subtext {
+            font-size: 1.2rem;
+            color: #ddd;
+        }
+
+        .ipfs-banner {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #ff7700;
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 200;
+            max-width: 300px;
+            backdrop-filter: blur(5px);
+        }
+
+        .ipfs-title {
+            color: #ff7700;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ipfs-content {
+            font-size: 0.9rem;
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        .ipfs-link {
+            color: #ff7700;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .ipfs-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
+            }
+            
+            .logo-text {
+                font-size: 1.8rem;
+            }
+            
+            .welcome-btn {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+            
+            .menu-title {
+                font-size: 2.2rem;
+            }
+            
+            .card-title {
+                font-size: 1.5rem;
+            }
+            
+            .ipfs-banner {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Page -->
+    <div class="welcome-page" id="welcomePage">
+        <div class="geometric-pattern"></div>
+        
+        <div class="logo-container">
+            <div class="logo">$PIMP</div>
+            <div class="logo-text">Community Hub</div>
+        </div>
+        
+        <div class="buttons-container">
+            <a href="https://arena.social/community/0x260E4C8a12A44F3527ABA7dCCA314677c332E579" target="_blank" class="welcome-btn">
+                <i class="fas fa-file-contract"></i> $PIMP Token Contract
+            </a>
+            
+            <a href="https://x.com/PIMPonARENA?t=8lWS5UsDxMizyEYgkWarmg&s=09" target="_blank" class="welcome-btn">
+                <i class="fab fa-twitter"></i> @PIMPonARENA X Account
+            </a>
+            
+            <a href="https://arena.social/?ref=meyefoundation" target="_blank" class="welcome-btn">
+                <i class="fas fa-link"></i> ARENA APP REFERRAL LINK
+            </a>
+            
+            <button class="welcome-btn" id="enterButton">
+                <i class="fas fa-door-open"></i> Enter $PIMP
+            </button>
+        </div>
+    </div>
+    
+    <!-- Menu Page -->
+    <div class="menu-page" id="menuPage">
+        <div class="geometric-pattern"></div>
+        
+        <div class="menu-header">
+            <h1 class="menu-title">$PIMP Dashboard</h1>
+            <p class="menu-subtitle">Track, vote, and engage with the $PIMP community. All tools in one place.</p>
+        </div>
+        
+        <div class="menu-grid">
+            <!-- Option 1 -->
+            <div class="menu-card">
+                <div class="card-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 class="card-title">$PIMP LEADERBOARD</h2>
+                <div class="card-content">
+                    Track influencers with the most tokens, highest accumulation, DCA, and profit/loss. Integrated with ARENA API for trending tokens and sentiment analysis.
+                </div>
+                <div class="card-footer">
+                    Contract: 0x260E4C8a12A44F3527ABA7dCCA314677c332E579
+                </div>
+            </div>
+            
+            <!-- Option 2 -->
+            <div class="menu-card">
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2 class="card-title">SIMP LEADERBOARD</h2>
+                <div class="card-content">
+                    Community-focused tracking of token holders. Monitor posts, accumulation, DCA, sales, and profit/loss. Track up to 20 tokens with live trade data.
+                </div>
+                <div class="card-footer">
+                    Contract: 0x260E4C8a12A44F3527ABA7dCCA314677c332E579
+                </div>
+            </div>
+            
+            <!-- Option 3 -->
+            <div class="menu-card">
+                <div class="card-icon">
+                    <i class="fas fa-vote-yea"></i>
+                </div>
+                <h2 class="card-title">VOTE A SIMP</h2>
+                <div class="card-content">
+                    Vote for users as SIMPs using Twitter and ARENA APIs. Cost: 500,000 tokens per vote. Unlimited votes allowed. Payments to: 0x31cd573c4849b152f3d0c535e1e6475142ed97db.
+                </div>
+                <div class="card-footer">
+                    <button class="welcome-btn" style="padding: 8px 15px; font-size: 1rem;">Vote Now</button>
+                </div>
+            </div>
+            
+            <!-- Option 4 -->
+            <div class="menu-card">
+                <div class="card-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h2 class="card-title">VOTE A $PIMP</h2>
+                <div class="card-content">
+                    Vote for users as $PIMPs. Cost: 500,000 tokens per vote. Unlimited votes allowed. Payments to: 0x31cd573c4849b152f3d0c535e1e6475142ed97db.
+                </div>
+                <div class="card-footer">
+                    <button class="welcome-btn" style="padding: 8px 15px; font-size: 1rem;">Vote Now</button>
+                </div>
+            </div>
+            
+            <!-- Option 5 -->
+            <div class="menu-card" id="gamesCard">
+                <div class="card-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h2 class="card-title">$PIMP GAMES</h2>
+                <div class="card-content">
+                    Exciting games and challenges for the $PIMP community. Compete, earn rewards, and climb the leaderboards.
+                </div>
+                <div class="card-footer">
+                    Coming Soon
+                </div>
+            </div>
+            
+            <!-- Option 6 -->
+            <div class="menu-card" id="toolsCard">
+                <div class="card-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h2 class="card-title">$PIMP TOOLS</h2>
+                <div class="card-content">
+                    Advanced analytics and trading tools for $PIMP token holders. Integrated with web3 dApps for comprehensive analysis.
+                </div>
+                <div class="card-footer">
+                    Coming Soon
+                </div>
+            </div>
+            
+            <!-- Option 7 -->
+            <div class="menu-card" id="metaverseCard">
+                <div class="card-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h2 class="card-title">$PIMP METAVERSE</h2>
+                <div class="card-content">
+                    Immersive virtual world for the $PIMP community. Own virtual land, socialize, and participate in exclusive events.
+                </div>
+                <div class="card-footer">
+                    Coming Soon
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Coming Soon Modal -->
+    <div class="coming-soon" id="comingSoon">
+        <div class="soon-content">
+            <button class="soon-close" id="closeSoon">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="soon-icon">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <div class="soon-text">Coming Soon</div>
+            <div class="soon-subtext">This feature is currently under development. Stay tuned for updates!</div>
+        </div>
+    </div>
+
+    <!-- IPFS Banner -->
+    <div class="ipfs-banner">
+        <div class="ipfs-title">
+            <i class="fas fa-cloud-upload-alt"></i> Hosted on IPFS
+        </div>
+        <div class="ipfs-content">
+            This website is ready for decentralized hosting on IPFS. Use Pinata Cloud for free hosting with 1GB storage.
+            <a href="https://www.pinata.cloud/" target="_blank" class="ipfs-link">Get Free IPFS Hosting →</a>
+        </div>
+    </div>
+
+    <script>
+        // Page navigation
+        document.getElementById('enterButton').addEventListener('click', function() {
+            document.getElementById('welcomePage').style.display = 'none';
+            document.getElementById('menuPage').style.display = 'block';
+        });
+        
+        // Coming soon modals
+        document.getElementById('gamesCard').addEventListener('click', function() {
+            document.getElementById('comingSoon').classList.add('show');
+        });
+        
+        document.getElementById('toolsCard').addEventListener('click', function() {
+            document.getElementById('comingSoon').classList.add('show');
+        });
+        
+        document.getElementById('metaverseCard').addEventListener('click', function() {
+            document.getElementById('comingSoon').classList.add('show');
+        });
+        
+        document.getElementById('closeSoon').addEventListener('click', function() {
+            document.getElementById('comingSoon').classList.remove('show');
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('comingSoon').addEventListener('click', function(e) {
+            if(e.target === this) {
+                this.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
